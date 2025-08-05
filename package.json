@@ -1,0 +1,27 @@
+{
+  "name": "adoptionai-server",
+  "version": "1.0.0",
+  "description": "AdoptionAI Server",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/minimist": "^1.2.5",
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.1",
+    "axios": "^1.11.0",
+    "dotenv": "^17.2.1",
+    "minimist": "^1.2.8",
+    "zod": "<=3.25.67"
+  }
+}
