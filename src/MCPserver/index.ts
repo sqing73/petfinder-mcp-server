@@ -35,7 +35,7 @@ export async function startServer(): Promise<void> {
     const generateOptionGuides = (options: Record<string, string | number> | string[]) => `must be one of [${Object.values(options).join(",")}]`
 
     server.tool(
-        "search_animals",
+        "search_adoptable_animals",
         "search for adoptable animals using the Petfinder API",
         {
             type: z.string().describe(generateOptionGuides(Object.values(animalTypes).map(type => type.name))),
@@ -96,6 +96,7 @@ export async function startServer(): Promise<void> {
                 }
             }
 
+            // Validate breed against animal type
             if (breed) {
                 const animalBreed = animalType.breeds?.find(b => b.toLowerCase() === breed.toLowerCase());
                 if (!animalBreed) {
@@ -111,8 +112,8 @@ export async function startServer(): Promise<void> {
             (petfinderParams as any).location = "zipcode" in location ? location.zipcode : location;
 
             try {
-                const cats = await petfinder.searchAnimals(petfinderParams as any);
-                if (cats.length === 0) {
+                const animals = await petfinder.searchAnimals(petfinderParams as any);
+                if (animals.length === 0) {
                     return {
                         content: [{
                             type: "text",
@@ -120,12 +121,15 @@ export async function startServer(): Promise<void> {
                         }],
                     };
                 }
-                const fields = ["name", "url", "breeds", "colors", "age", "gender", "size", "coat", "description", "attributes", "environment", "tags", "contact", "distance", "published_at",]
-
+                animals.map(({ photos, primary_photo_cropped, ...rest }) => rest);;
                 return {
                     content: [{
                         type: "text",
-                        text: `Cats found: ${JSON.stringify(cats, fields)}. Ask the user if they need to help draft email to reach out to shelter.`,
+                        text: `Animals found: ${JSON.stringify(animals)}.
+                        Please recommend at least three animals from the result.
+                        Each recommendation must include the corresponding url.
+                        Ask the user if they need help to draft an email to reach out to shelter. 
+                        If yes, collect some information from user before drafting the email`,
                     }],
                 };
 
@@ -139,6 +143,34 @@ export async function startServer(): Promise<void> {
             }
         },
     );
+
+    server.prompt(
+        "user_information_collector_for_shelter_email",
+        "collect some user information before drafting the email to shelter",
+        {},
+        async () => {
+            return {
+                messages: [
+                    {
+                        role: "assistant",
+                        content: {
+                            type: "text",
+                            text: `Collect the following information from the user:
+                            Preferred animals from the recommendations
+                            Whether they have children
+                            Whether they have cats
+                            Whether they have dogs
+                            Whether they have kids visiting frequently
+                            Whether this is their first time owning a pet
+                            Whether they are renting or own their house
+                            Let the user know that this information is not mandatory but encourage them to provide as much as possible.
+                            Once the information is gathered, use it to write a polite and warm email to the shelter.`
+                        }
+                    }
+                ]
+            }
+        }
+    )
 
     const transport = new StdioServerTransport();
     await server.connect(transport);

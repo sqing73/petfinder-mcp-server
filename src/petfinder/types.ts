@@ -52,6 +52,12 @@ export enum Status {
     Adopted = "adopted"
 }
 
+export type Photo = {
+    small: string;
+    medium: string;
+    large: string;
+    full: string;
+}
 export type Animal = {
     id: number;
     organization_id: string;
@@ -75,12 +81,7 @@ export type Animal = {
     coat: Coat;
     name: string;
     description: string;
-    photos: Array<{
-        small: string;
-        medium: string;
-        large: string;
-        full: string;
-    }>;
+    photos: Array<Photo>;
     videos: Array<{
         embed: string;
     }>;
@@ -112,6 +113,7 @@ export type Animal = {
     };
     published_at: string;
     distance: number;
+    primary_photo_cropped: Array<Photo>;
 }
 
 export interface SearchAnimalsResponse {
