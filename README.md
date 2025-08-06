@@ -138,6 +138,12 @@ The server also provides a prompt `user_information_collector_for_shelter_email`
 - `npm run dev`: Watch mode for development
 - `npm start`: Run the compiled server
 
+### TODO
+
+- [ ] **Image-based Animal Search**: Add functionality to find similar animals by uploading an image
+  - Use image embedding and vector database with distance metrics to find most similar animals
+  - Provide visual similarity scoring for better matches
+
 ## 📝 Example Usage
 
 The server is designed to work with AI assistants that support the Model Context Protocol. When integrated, users can ask questions like:
