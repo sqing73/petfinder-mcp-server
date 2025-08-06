@@ -1,15 +1,20 @@
 {
-  "name": "adoptionai-server",
-  "version": "1.0.0",
-  "description": "AdoptionAI Server",
+  "name": "pet-adoption-mcp",
+  "version": "1.0.2",
+  "description": "A Model Context Protocol (MCP) server that helps users find adoptable pets through the Petfinder API",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
     "start": "node dist/index.js"
   },
-  "keywords": [],
-  "author": "",
+  "bin": {
+    "pet-adoption-mcp": "dist/index.js"
+  },
+  "keywords": ["mcp", "petfinder", "adoption", "pets", "ai", "model-context-protocol", "claude", "anthropic"],
+  "author": "shawnq <shanqing73@yahoo.com>",
+  "repository": "github:sqing73/mcp-server-for-pet-adoption",
+  "homepage": "https://github.com/sqing73/mcp-server-for-pet-adoption#readme",
   "license": "MIT",
   "devDependencies": {
     "@types/minimist": "^1.2.5",
@@ -23,5 +28,9 @@
     "dotenv": "^17.2.1",
     "minimist": "^1.2.8",
     "zod": "<=3.25.67"
-  }
+  },
+  "files": [
+    "dist/",
+    "README.md"
+  ]
 }
