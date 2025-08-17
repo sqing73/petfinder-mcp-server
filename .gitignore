@@ -141,3 +141,5 @@ vite.config.ts.timestamp-*
 # Miscellaneous
 .vscode
 .DS_Store
+
+qdrant_storage*
