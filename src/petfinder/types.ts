@@ -58,6 +58,7 @@ export type Photo = {
     large: string;
     full: string;
 }
+
 export type Animal = {
     id: number;
     organization_id: string;
