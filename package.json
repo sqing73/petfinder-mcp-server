@@ -1,6 +1,6 @@
 {
   "name": "pet-adoption-mcp",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "A Model Context Protocol (MCP) server that helps users find adoptable pets through the Petfinder API",
   "main": "dist/index.js",
   "scripts": {
